@@ -74,6 +74,22 @@ impl UInt {
         }
     }
 
+    /// Create a `UInt` from the provided `u64` without checking if it is in the range 0 to `MAX_SAFE_UINT`.
+    ///
+    /// # Safety
+    /// The caller **must** ensure that the provided value is in the range 0 to `MAX_SAFE_UINT`.
+    ///
+    /// # Examples
+    ///
+    /// Basic usage:
+    /// ```
+    /// # use js_int::UInt;
+    /// assert_eq!(unsafe {UInt::new_unchecked(8_589_934_592)}, UInt::new(8_589_934_592).unwrap());
+    /// ```
+    pub unsafe fn new_unchecked(val: u64) -> Self {
+        Self(val)
+    }
+
     /// Create a `UInt` from the provided `u64`, wrapping at `MAX_SAFE_UINT`.
     ///
     /// # Examples

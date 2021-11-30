@@ -77,6 +77,23 @@ impl Int {
         }
     }
 
+    /// Create an `Int` from the provided `i64` without checking if it is in the range `MIN_SAFE_INT` to `MAX_SAFE_INT`.
+    ///
+    /// # Safety
+    /// The caller **must** ensure that the provided value is in the range `MIN_SAFE_INT` to `MAX_SAFE_INT`.
+    ///
+    /// # Examples
+    ///
+    /// Basic usage:
+    /// ```
+    /// # use js_int::Int;
+    /// assert_eq!(unsafe {Int::new_unchecked(8_589_934_592)}, Int::new(8_589_934_592).unwrap());
+    /// ```
+    #[must_use]
+    pub unsafe fn new_unchecked(val: i64) -> Self {
+        Self(val)
+    }
+
     /// Creates an `Int` from the given `i64` clamped to the safe interval.
     ///
     /// The given value gets clamped into the closed interval between
